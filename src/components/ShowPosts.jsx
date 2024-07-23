@@ -1,46 +1,31 @@
 const ShowPosts = () => {
+  const post = JSON.parse(localStorage.getItem("selectedPost"));
   return (
     <div className="flex flex-col flex-wrap items-center bg-white">
       <div className="md:w-1/2 sm:p-12 p-6 sm:my-6 my-3 ">
         <div className=" w-full">
-          <h1 className="sm:text-4xl text-xl sm:mb-8 mb-6 ">
-            The Impact of Technology on the Workplace: How Technology is
-            Changing
-          </h1>
+          <h1 className="sm:text-4xl text-xl sm:mb-8 mb-6 ">{post.title}</h1>
           <div className="flex flex-row sm:justify-start justify-between text-black text-md items-center gap-8 mb-8">
             <div className="flex flex-row items-center gap-2">
               <img
-                src="https://avatars.githubusercontent.com/u/109952444?v=4"
+                src={post.authorImage}
                 alt="author image"
                 className="w-10 h-10 rounded-full "
               />
-              <p>author name</p>
+              <p>{post.authorName}</p>
             </div>
-            <p>18 May 2024</p>
+            <p>{post.date}</p>
           </div>
           <div className="mb-4">
             <img
-              src="/src/assets/mountain.avif"
+              src={post.imageUrl}
               alt="blog-img"
               className="rounded-lg  w-auto"
             />
           </div>
           <div className="">
-            <p>
-              Traveling is an enriching experience that opens up new horizons,
-              exposes us to different cultures, and creates memories that last a
-              lifetime. However, traveling can also be stressful and
-              overwhelming, especially if you do not plan and prepare
-              adequately. In this blog article, we will explore tips and tricks
-              for a memorable journey and how to make the most of your travels.
-              One of the most rewarding aspects of traveling is immersing
-              yourself in the local culture and customs. This includes trying
-              local cuisine, attending cultural events and festivals, and
-              interacting with locals. Learning a few phrases in the local
-              language can also go a long way in making connections and showing
-              respect.
-            </p>
-            <h2>Research Your Destination</h2>
+            <p>{post.description}</p>
+            {/* <h2>Research Your Destination</h2>
             <p>
               Before embarking on your journey, take the time to research your
               destination. This includes understanding the local culture,
@@ -110,7 +95,7 @@ const ShowPosts = () => {
               you can make the most of your journey and create memories that
               last a lifetime. So pack your bags, embrace the adventure, and
               enjoy the ride.
-            </p>
+            </p> */}
           </div>
         </div>
       </div>

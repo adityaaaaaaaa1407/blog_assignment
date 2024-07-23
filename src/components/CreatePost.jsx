@@ -1,19 +1,79 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
   const [caption, setCaption] = useState("");
   const [description, setDescription] = useState("");
   const [photo, setPhoto] = useState(null);
   const [category, setCategory] = useState("");
+  const navigate = useNavigate();
+  // Retrieve data from localStorage when the component mounts
+  useEffect(() => {
+    const storedCaption = localStorage.getItem("caption");
+    const storedDescription = localStorage.getItem("description");
+    const storedPhoto = localStorage.getItem("photo");
+    const storedCategory = localStorage.getItem("category");
+
+    if (storedCaption) setCaption(storedCaption);
+    if (storedDescription) setDescription(storedDescription);
+    if (storedPhoto) setPhoto(storedPhoto);
+    if (storedCategory) setCategory(storedCategory);
+  }, []);
+
+  // Save data to localStorage whenever the state changes
+  useEffect(() => {
+    localStorage.setItem("caption", caption);
+  }, [caption]);
+
+  useEffect(() => {
+    localStorage.setItem("description", description);
+  }, [description]);
+
+  useEffect(() => {
+    localStorage.setItem("photo", photo);
+  }, [photo]);
+
+  useEffect(() => {
+    localStorage.setItem("category", category);
+  }, [category]);
 
   const handlePhotoUpload = (e) => {
-    setPhoto(e.target.files[0]);
-  };
+    const file = e.target.files[0];
+    const reader = new FileReader();
 
+    reader.onloadend = () => {
+      setPhoto(reader.result);
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+  const handleCancel = () => {
+    // Redirect to Home page or another desired route
+    setCaption("");
+    setDescription("");
+    setPhoto(null);
+    setCategory("");
+
+    navigate("/"); // Navigate to home page
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
+    const newPost = {
+      imageUrl: photo,
+      authorImage: "https://avatars.githubusercontent.com/u/109952444?v=4", // Change to dynamic author image if available
+      authorName: "anonymous", // Change to dynamic author name if available
+      date: new Date().toLocaleDateString(),
+      title: caption,
+      category: category,
+      description: description,
+    };
+    const storedPosts = JSON.parse(localStorage.getItem("posts")) || [];
+    storedPosts.push(newPost);
+    localStorage.setItem("posts", JSON.stringify(storedPosts));
+    navigate("/"); // Redirect to Home page
   };
 
   return (
@@ -65,6 +125,11 @@ const CreatePost = () => {
               <span className="text-blue-500">select from computer</span>
             </label>
           </div>
+          {photo && (
+            <div className="mt-4">
+              <img src={photo} alt="Uploaded" className="max-w-full h-auto" />
+            </div>
+          )}
         </div>
 
         <div className="mb-8">
@@ -85,13 +150,14 @@ const CreatePost = () => {
           <button
             type="button"
             className="bg-gray-600 text-white px-4 py-2 rounded-lg"
-            onClick={() => console.log("Cancel")}
+            onClick={handleCancel}
           >
             Cancel
           </button>
           <button
             type="submit"
             className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+            onClick={handleSubmit}
           >
             Create Blog
           </button>
