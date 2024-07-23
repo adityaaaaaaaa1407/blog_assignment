@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import ReactQuill from "@techstack/react-quill";
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -52,16 +52,17 @@ const CreatePost = () => {
     }
   };
   const handleCancel = () => {
-    // Redirect to Home page or another desired route
+    navigate("/");
 
-    navigate("/"); // Navigate to home page
+    // Navigate to home page
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newPost = {
       imageUrl: photo,
       authorImage: "https://avatars.githubusercontent.com/u/109952444?v=4", // Change to dynamic author image if available
-      authorName: "anonymous", // Change to dynamic author name if available
+      authorName: "anonymous",
       date: new Date().toLocaleDateString(),
       title: caption,
       category: category,
@@ -70,11 +71,8 @@ const CreatePost = () => {
     const storedPosts = JSON.parse(localStorage.getItem("posts")) || [];
     storedPosts.push(newPost);
     localStorage.setItem("posts", JSON.stringify(storedPosts));
-    setCaption("");
-    setDescription("");
-    setPhoto(null);
-    setCategory("");
-    navigate("/"); // Redirect to Home page
+
+    navigate("/");
   };
 
   return (
@@ -89,31 +87,24 @@ const CreatePost = () => {
           <label className="block text-white mb-2" htmlFor="caption">
             Title
           </label>
-          <ReactQuill
+
+          <textarea
+            id="caption"
+            className="w-full p-2 bg-gray-700 text-white rounded"
             value={caption}
             onChange={(e) => setCaption(e.target.value)}
-            theme="snow"
-            placeholder="Enter the title"
-            className="w-full p-2 bg-gray-700 text-white rounded"
           />
         </div>
         <div className="mb-4">
           <label className="block text-white mb-2" htmlFor="description">
             Description
           </label>
-          <ReactQuill
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            theme="snow"
-            placeholder="Enter the description"
-            className="w-full p-10 bg-gray-700 text-white rounded"
-          />
-          {/* <textarea
+          <textarea
             id="description"
             className="w-full p-10 bg-gray-700 text-white rounded"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-          /> */}
+          />
         </div>
 
         <div className="mb-4">

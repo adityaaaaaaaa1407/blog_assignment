@@ -6,7 +6,6 @@ const Home = () => {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
 
-  // Fetch posts from localStorage when component mounts
   useEffect(() => {
     const storedPosts = JSON.parse(localStorage.getItem("posts")) || [];
     setPosts(storedPosts);
@@ -16,6 +15,9 @@ const Home = () => {
     // Store the selected post in localStorage (or use a state management solution)
     localStorage.setItem("selectedPost", JSON.stringify(post));
     navigate("/post");
+  };
+  const handleBlog = () => {
+    navigate("/create-post");
   };
   return (
     <div className="bg-gray-900 min-h-screen">
@@ -27,7 +29,7 @@ const Home = () => {
           Blog Posts
         </h1>
         <div className="flex flex-row items-center gap-3 sm:text-xl text-md sm:px-4 px-2 sm:py-2 py-1 m-2 font-bold text-white cursor-pointer">
-          <h1 onClick={() => navigate("/create-post")} className="">
+          <h1 onClick={handleBlog} className="">
             Create Blog
           </h1>
           <FaEdit />
