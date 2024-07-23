@@ -3,9 +3,9 @@ import { useState } from "react";
 
 const CreatePost = () => {
   const [caption, setCaption] = useState("");
+  const [description, setDescription] = useState("");
   const [photo, setPhoto] = useState(null);
-  const [location, setLocation] = useState("");
-  const [tags, setTags] = useState("");
+  const [category, setCategory] = useState("");
 
   const handlePhotoUpload = (e) => {
     setPhoto(e.target.files[0]);
@@ -19,20 +19,31 @@ const CreatePost = () => {
   return (
     <div className="bg-gray-900 min-h-screen flex items-center justify-center">
       <form
-        className="bg-gray-800 p-8 rounded-lg w-full max-w-md"
+        className="bg-gray-800 p-6 rounded-lg w-full max-w-md"
         onSubmit={handleSubmit}
       >
-        <h2 className="text-white text-2xl mb-4">Create Post</h2>
+        <h2 className="text-white text-2xl mb-4">Create Blog</h2>
 
         <div className="mb-4">
           <label className="block text-white mb-2" htmlFor="caption">
-            Caption
+            Title
           </label>
           <textarea
             id="caption"
             className="w-full p-2 bg-gray-700 text-white rounded"
             value={caption}
             onChange={(e) => setCaption(e.target.value)}
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-white mb-2" htmlFor="description">
+            Description
+          </label>
+          <textarea
+            id="description"
+            className="w-full p-10 bg-gray-700 text-white rounded"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
           />
         </div>
 
@@ -56,45 +67,33 @@ const CreatePost = () => {
           </div>
         </div>
 
-        <div className="mb-4">
-          <label className="block text-white mb-2" htmlFor="location">
-            Add Location
+        <div className="mb-8">
+          <label className="block text-white mb-2" htmlFor="category">
+            Add Category
           </label>
           <input
-            id="location"
+            id="category"
             type="text"
             className="w-full p-2 bg-gray-700 text-white rounded"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-white mb-2" htmlFor="tags">
-            Add Tags (separated by comma ",")
-          </label>
-          <input
-            id="tags"
-            type="text"
-            className="w-full p-2 bg-gray-700 text-white rounded"
-            value={tags}
-            onChange={(e) => setTags(e.target.value)}
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            placeholder="Technology "
           />
         </div>
 
         <div className="flex justify-between">
           <button
             type="button"
-            className="bg-gray-600 text-white px-4 py-2 rounded"
+            className="bg-gray-600 text-white px-4 py-2 rounded-lg"
             onClick={() => console.log("Cancel")}
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded"
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg"
           >
-            Create Post
+            Create Blog
           </button>
         </div>
       </form>

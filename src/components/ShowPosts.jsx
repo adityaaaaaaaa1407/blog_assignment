@@ -1,8 +1,8 @@
 const ShowPosts = () => {
   return (
-    <div>
-      <div className="flex flex-col flex-wrap items-center sm:p-12 p-6 sm:my-6 my-3 ">
-        <div className="md:w-1/2 w-full">
+    <div className="flex flex-col flex-wrap items-center bg-white">
+      <div className="md:w-1/2 sm:p-12 p-6 sm:my-6 my-3 ">
+        <div className=" w-full">
           <h1 className="text-4xl mb-8 ">
             The Impact of Technology on the Workplace: How Technology is
             Changing

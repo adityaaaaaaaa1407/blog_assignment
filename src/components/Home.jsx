@@ -89,19 +89,19 @@ const Home = () => {
     // Add more posts here
   ];
   return (
-    <div>
-      <div className="flex flex-row flex-1 justify-between items-center">
+    <div className="bg-gray-900">
+      <div className="flex flex-row flex-1 justify-between items-center ">
         <h1
-          className="text-3xl font-bold px-4 py-2 m-2 cursor-pointer "
+          className="text-3xl font-bold px-4 py-2 m-2 cursor-pointer text-white "
           onClick={() => (window.location.href = "/")}
         >
           Blog Posts
         </h1>
         <h1
           onClick={() => (window.location.href = "/create-post")}
-          className="cursor-pointer text-3xl font-bold"
+          className="cursor-pointer text-3xl px-4 py-2 m-2 font-bold text-white"
         >
-          create post here
+          Create Blog
         </h1>
       </div>
       <div className=" ">
@@ -110,7 +110,7 @@ const Home = () => {
             {posts.map((post, index) => (
               <div
                 key={index}
-                className="flex flex-col flex-1 flex-wrap p-4 my-4 mx-2 border rounded-xl border-gray-600 object-cover h-auto cursor-pointer"
+                className="flex flex-col flex-1 flex-wrap p-4 my-4 mx-2 border rounded-xl bg-white border-gray-600 object-cover h-auto cursor-pointer"
                 onClick={handleClick}
               >
                 <img
