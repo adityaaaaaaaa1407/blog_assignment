@@ -3,7 +3,7 @@ const ShowPosts = () => {
     <div className="flex flex-col flex-wrap items-center bg-white">
       <div className="md:w-1/2 sm:p-12 p-6 sm:my-6 my-3 ">
         <div className=" w-full">
-          <h1 className="text-4xl mb-8 ">
+          <h1 className="sm:text-4xl text-xl sm:mb-8 mb-6 ">
             The Impact of Technology on the Workplace: How Technology is
             Changing
           </h1>
