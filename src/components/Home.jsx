@@ -90,12 +90,20 @@ const Home = () => {
   ];
   return (
     <div>
-      <h1
-        className="text-3xl font-bold px-4 py-2 m-2 cursor-pointer "
-        onClick={() => (window.location.href = "/")}
-      >
-        Blog Posts
-      </h1>
+      <div className="flex flex-row flex-1 justify-between items-center">
+        <h1
+          className="text-3xl font-bold px-4 py-2 m-2 cursor-pointer "
+          onClick={() => (window.location.href = "/")}
+        >
+          Blog Posts
+        </h1>
+        <h1
+          onClick={() => (window.location.href = "/create-post")}
+          className="cursor-pointer text-3xl font-bold"
+        >
+          create post here
+        </h1>
+      </div>
       <div className=" ">
         <div className="px-2">
           <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2">

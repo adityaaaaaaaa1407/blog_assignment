@@ -11,12 +11,12 @@ function App() {
       element: <Home />,
     },
     {
-      path: "/post",
-      element: <ShowPosts />,
-    },
-    {
       path: "/create-post",
       element: <CreatePost />,
+    },
+    {
+      path: "/post",
+      element: <ShowPosts />,
     },
   ]);
   return (
