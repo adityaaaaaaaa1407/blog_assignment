@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+import ReactQuill from "@techstack/react-quill";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -52,10 +53,6 @@ const CreatePost = () => {
   };
   const handleCancel = () => {
     // Redirect to Home page or another desired route
-    setCaption("");
-    setDescription("");
-    setPhoto(null);
-    setCategory("");
 
     navigate("/"); // Navigate to home page
   };
@@ -73,6 +70,10 @@ const CreatePost = () => {
     const storedPosts = JSON.parse(localStorage.getItem("posts")) || [];
     storedPosts.push(newPost);
     localStorage.setItem("posts", JSON.stringify(storedPosts));
+    setCaption("");
+    setDescription("");
+    setPhoto(null);
+    setCategory("");
     navigate("/"); // Redirect to Home page
   };
 
@@ -88,23 +89,31 @@ const CreatePost = () => {
           <label className="block text-white mb-2" htmlFor="caption">
             Title
           </label>
-          <textarea
-            id="caption"
-            className="w-full p-2 bg-gray-700 text-white rounded"
+          <ReactQuill
             value={caption}
             onChange={(e) => setCaption(e.target.value)}
+            theme="snow"
+            placeholder="Enter the title"
+            className="w-full p-2 bg-gray-700 text-white rounded"
           />
         </div>
         <div className="mb-4">
           <label className="block text-white mb-2" htmlFor="description">
             Description
           </label>
-          <textarea
+          <ReactQuill
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            theme="snow"
+            placeholder="Enter the description"
+            className="w-full p-10 bg-gray-700 text-white rounded"
+          />
+          {/* <textarea
             id="description"
             className="w-full p-10 bg-gray-700 text-white rounded"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-          />
+          /> */}
         </div>
 
         <div className="mb-4">
@@ -127,7 +136,7 @@ const CreatePost = () => {
           </div>
           {photo && (
             <div className="mt-4">
-              <img src={photo} alt="Uploaded" className="max-w-full h-auto" />
+              <img src={photo} alt="Uploaded" className="max-w-full h-auto " />
             </div>
           )}
         </div>
