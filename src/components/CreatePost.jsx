@@ -1,6 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 
-import { useState, useEffect } from "react";
+import ReactQuill from "@techstack/react-quill";
+import "@techstack/react-quill/dist/quill.snow.css";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
@@ -9,35 +11,6 @@ const CreatePost = () => {
   const [photo, setPhoto] = useState(null);
   const [category, setCategory] = useState("");
   const navigate = useNavigate();
-  // Retrieve data from localStorage when the component mounts
-  useEffect(() => {
-    const storedCaption = localStorage.getItem("caption");
-    const storedDescription = localStorage.getItem("description");
-    const storedPhoto = localStorage.getItem("photo");
-    const storedCategory = localStorage.getItem("category");
-
-    if (storedCaption) setCaption(storedCaption);
-    if (storedDescription) setDescription(storedDescription);
-    if (storedPhoto) setPhoto(storedPhoto);
-    if (storedCategory) setCategory(storedCategory);
-  }, []);
-
-  // Save data to localStorage whenever the state changes
-  useEffect(() => {
-    localStorage.setItem("caption", caption);
-  }, [caption]);
-
-  useEffect(() => {
-    localStorage.setItem("description", description);
-  }, [description]);
-
-  useEffect(() => {
-    localStorage.setItem("photo", photo);
-  }, [photo]);
-
-  useEffect(() => {
-    localStorage.setItem("category", category);
-  }, [category]);
 
   const handlePhotoUpload = (e) => {
     const file = e.target.files[0];
@@ -51,17 +24,48 @@ const CreatePost = () => {
       reader.readAsDataURL(file);
     }
   };
+
   const handleCancel = () => {
     navigate("/");
-
-    // Navigate to home page
   };
+
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [{ size: ["small", false, "large", "huge"] }],
+      [{ font: [] }],
+      [{ align: ["right", "center", "justify"] }],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["link", "image"],
+      [{ color: ["red", "#785412"] }],
+      [{ background: ["red", "#785412"] }],
+    ],
+  };
+
+  const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "link",
+    "color",
+    "image",
+    "background",
+    "align",
+    "size",
+    "font",
+  ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newPost = {
       imageUrl: photo,
-      authorImage: "https://avatars.githubusercontent.com/u/109952444?v=4", // Change to dynamic author image if available
+      authorImage: "https://avatars.githubusercontent.com/u/109952444?v=4",
       authorName: "anonymous",
       date: new Date().toLocaleDateString(),
       title: caption,
@@ -72,13 +76,19 @@ const CreatePost = () => {
     storedPosts.push(newPost);
     localStorage.setItem("posts", JSON.stringify(storedPosts));
 
+    // Clear the form by resetting the state
+
     navigate("/");
+  };
+
+  const handleQuillChange = (content) => {
+    setDescription(content);
   };
 
   return (
     <div className="bg-gray-900 min-h-screen flex items-center justify-center">
       <form
-        className="bg-gray-800 p-6 rounded-lg w-full max-w-md"
+        className="bg-gray-800 p-6 rounded-lg w-full max-w-4xl"
         onSubmit={handleSubmit}
       >
         <h2 className="text-white text-2xl mb-4">Create Blog</h2>
@@ -87,7 +97,6 @@ const CreatePost = () => {
           <label className="block text-white mb-2" htmlFor="caption">
             Title
           </label>
-
           <textarea
             id="caption"
             className="w-full p-2 bg-gray-700 text-white rounded"
@@ -95,15 +104,18 @@ const CreatePost = () => {
             onChange={(e) => setCaption(e.target.value)}
           />
         </div>
+
         <div className="mb-4">
           <label className="block text-white mb-2" htmlFor="description">
             Description
           </label>
-          <textarea
-            id="description"
-            className="w-full p-10 bg-gray-700 text-white rounded"
+          <ReactQuill
+            theme="snow"
+            modules={modules}
+            formats={formats}
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={handleQuillChange}
+            className="w-full h-full p-2 rounded-lg text-black bg-white"
           />
         </div>
 
@@ -127,7 +139,7 @@ const CreatePost = () => {
           </div>
           {photo && (
             <div className="mt-4">
-              <img src={photo} alt="Uploaded" className="max-w-full h-auto " />
+              <img src={photo} alt="Uploaded" className="max-w-full h-auto" />
             </div>
           )}
         </div>
@@ -142,7 +154,7 @@ const CreatePost = () => {
             className="w-full p-2 bg-gray-700 text-white rounded"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            placeholder="Technology "
+            placeholder="Technology"
           />
         </div>
 
@@ -157,7 +169,6 @@ const CreatePost = () => {
           <button
             type="submit"
             className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-            onClick={handleSubmit}
           >
             Create Blog
           </button>

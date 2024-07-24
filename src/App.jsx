@@ -4,6 +4,7 @@ import CreatePost from "./components/CreatePost";
 import Home from "./components/Home";
 import ShowPosts from "./components/ShowPosts";
 
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -21,7 +22,7 @@ function App() {
   ]);
   return (
     <>
-      <div className="bg-gray-900">
+      <div className="">
         <RouterProvider router={router} />
       </div>
     </>

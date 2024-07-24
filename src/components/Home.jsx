@@ -12,7 +12,6 @@ const Home = () => {
   }, []);
 
   const handleClick = (post) => {
-    // Store the selected post in localStorage (or use a state management solution)
     localStorage.setItem("selectedPost", JSON.stringify(post));
     navigate("/post");
   };

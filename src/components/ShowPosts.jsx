@@ -1,5 +1,6 @@
 const ShowPosts = () => {
   const post = JSON.parse(localStorage.getItem("selectedPost"));
+  console.log(post);
   return (
     <div className="flex flex-col flex-wrap items-center bg-white">
       <div className="md:w-1/2 sm:p-12 p-6 sm:my-6 my-3 ">
@@ -24,7 +25,10 @@ const ShowPosts = () => {
             />
           </div>
           <div className="">
-            <p>{post.description}</p>
+            <div
+              dangerouslySetInnerHTML={{ __html: post.description }}
+              className="[&>h1]:text-4xl [&>h2]:text-2xl [&>h3]:text-lg"
+            />
           </div>
         </div>
       </div>
