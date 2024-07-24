@@ -45,7 +45,7 @@ const Home = () => {
               <img
                 src={post.imageUrl}
                 alt={post.title}
-                className="rounded-lg mb-4"
+                className="rounded-lg mb-4 w-120 h-60 object-cover"
               />
               <div className="flex flex-col">
                 <p className="text-blue-700 text-md font-bold mb-4 ml-4">

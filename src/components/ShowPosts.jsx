@@ -21,7 +21,7 @@ const ShowPosts = () => {
             <img
               src={post.imageUrl}
               alt="blog-img"
-              className="rounded-lg  w-auto"
+              className="rounded-lg w-[800px] h-[400px] object-cover"
             />
           </div>
           <div className="">
